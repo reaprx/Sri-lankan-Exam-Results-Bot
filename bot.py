@@ -1,7 +1,7 @@
 import telebot
 import webbrowser
 
-webbrowser.open(https:/zoom.us)
+webbrowser.open("https:/zoom.us")
 
 bot = telebot.TeleBot("1664618022:AAEG_LYU49USJpklBe9r4f5T_xhDu2s-F8g")
 
