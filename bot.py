@@ -4,7 +4,7 @@ import re
 import requests
 import json
 
-bot_token = "1664618022:AAHCrrmXi4yGfBdyViHonBUnBXpvmxIA2lE"
+bot_token = "1664618022:AAETfMo3PxMTtqgxDzdPaqW-JNCg5joeSW0"
 
 bot = telebot.TeleBot(bot_token)
 
