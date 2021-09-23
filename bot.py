@@ -1,10 +1,9 @@
-import os
 import telebot
 import re
 import requests
 import json
 
-bot_token = "1664618022:AAETfMo3PxMTtqgxDzdPaqW-JNCg5joeSW0"
+bot_token = #REPLACE_BOT_TOKEN
 
 bot = telebot.TeleBot(bot_token)
 
