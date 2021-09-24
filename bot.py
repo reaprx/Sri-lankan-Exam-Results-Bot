@@ -2,8 +2,9 @@ import telebot
 import re
 import requests
 import json
+import os
 
-bot_token = #REPLACE_BOT_TOKEN
+bot_token = os.environ('BOT_TOKEN')
 
 bot = telebot.TeleBot(bot_token)
 
