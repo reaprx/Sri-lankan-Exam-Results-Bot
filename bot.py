@@ -45,7 +45,9 @@ def send_help(message):
 
 /al {Index nNumber}  -  To get AL Rsults
 /ol {Index nNumber}  -  To get OL Rsults
-/g5 {Index nNumber}  -  To get Grade 5 Scholarship Exam Rsults""")
+/g5 {Index nNumber}  -  To get Grade 5 Scholarship Exam Rsults
+
+e.g. - /ol 6162XXXX""")
 
 @bot.message_handler(commands=['al','AL','Al'])
 def send_al(message):
@@ -54,7 +56,7 @@ def send_al(message):
     alresult(x[1])
     bot.reply_to(message,res)
   except:
-    bot.reply_to(message, "Index Number?")
+    bot.reply_to(message, "Can't read the Index Number")
   
 @bot.message_handler(commands=['ol','OL','Ol'])
 def send_ol(message):
@@ -63,7 +65,7 @@ def send_ol(message):
      olresult(x[1])
      bot.reply_to(message, res)
    except:
-     bot.reply_to(message, "Index Number?")
+     bot.reply_to(message, "Can't read the Index Number")
      
 
 @bot.message_handler(commands=['g5','G5'])
@@ -73,6 +75,6 @@ def send_g5(message):
      g5result(x[1])
      bot.reply_to(message, res)
    except:
-     bot.reply_to(message, "Index Number?")
+     bot.reply_to(message, "Can't read the Index Number")
 
 bot.polling()
