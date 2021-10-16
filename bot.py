@@ -16,30 +16,54 @@ help_mes = """To get Results send Index Number as Following.
 /g5 {Index nNumber}  -  To get Grade 5 Scholarship Exam Rsults
 
 e.g. :- /ol 6162XXXX"""
-type_error = "Wrong Index Number"
-in_error = "Check the index number again"
 
 def alresult(inumber):
-  result_json = requests.get("https://www.doenets.lk/result/service/AlResult/"+inumber)
   try:
+   result_json = requests.get("https://www.doenets.lk/result/service/AlResult/"+inumber)
    re = json.loads(result_json.text)
    global res
-   res = "\nExam - " + re['examination'] + "\nYear - "+ re['year'] + "\nName - " + re['name'] + "\nIndex Number - " + re['indexNo'] + "\nNIC Number - " + re['nic'] + "\nDistrict Rank - " + re['districtRank'] + "\nIsland Rank - " + re['islandRank'] + "\nZScore - " + re['zScore'] + "\nSubject Stream - " + re['stream'] + "\nResults \n" + re['subjectResults'][0]['subjectName'] + " - " + re['subjectResults'][0]['subjectResult'] + "\n" + re['subjectResults'][1]['subjectName'] + " - " + re['subjectResults'][1]['subjectResult'] + "\n" + re['subjectResults'][2]['subjectName'] + " - " + re['subjectResults'][2]['subjectResult'] + "\n" + re['subjectResults'][3]['subjectName'] + " - " + re['subjectResults'][3]['subjectResult'] + "\n" + re['subjectResults'][4]['subjectName'] + " - " + re['subjectResults'][4]['subjectResult']
+   res = """Exam - {}
+Year - {} 
+Name - {}
+Index Number - {} 
+NIC Number - {}
+District Rank - {}
+Island Rank - {} 
+ZScore - {} 
+Subject Stream - {} 
+{} - {} 
+{} - {}
+{} - {}
+{} - {}
+{} - {}"""
+   res=res.format(re['examination'], re['year'], re['name'], re['indexNo'], re['nic'], re['districtRank'], re['islandRank'], re['zScore'], re['stream'], re['subjectResults'][0]['subjectName'], re['subjectResults'][0]['subjectResult'], re['subjectResults'][1]['subjectName'], re['subjectResults'][1]['subjectResult'], re['subjectResults'][2]['subjectName'], re['subjectResults'][2]['subjectResult'], re['subjectResults'][3]['subjectName'], re['subjectResults'][3]['subjectResult'], re['subjectResults'][4]['subjectName'], re['subjectResults'][4]['subjectResult'])
   except TypeError:
-   res= type_error
+   alresult(inumber)
 
 def olresult(inumber):
-  result_json = requests.get("https://www.doenets.lk/result/service/OlResult/"+inumber)
-  try:  
+  try:
+    result_json = requests.get("https://www.doenets.lk/result/service/OlResult/"+inumber)
     re = json.loads(result_json.text)
     global res
-    res = "\nExam - " + re['examination'] +"\nYear - " + re['year'] + "\nName - " + re['name'] + "\nIndex Number - " + re['indexNo'] + "\nResults \n" + re['subjectResults'][0]['subjectName'] + " - " + re['subjectResults'][0]['subjectResult'] + "\n" + re['subjectResults'][1]['subjectName'] + " - " + re['subjectResults'][1]['subjectResult'] + "\n" + re['subjectResults'][2]['subjectName'] + " - " + re['subjectResults'][2]['subjectResult'] + "\n" + re['subjectResults'][3]['subjectName'] + " - " + re['subjectResults'][3]['subjectResult'] + "\n" + re['subjectResults'][4]['subjectName'] + " - " + re['subjectResults'][4]['subjectResult'] + "\n" + re['subjectResults'][5]['subjectName'] + " - " + re['subjectResults'][5]['subjectResult'] + "\n" + re['subjectResults'][6]['subjectName'] + " - " + re['subjectResults'][6]['subjectResult'] + "\n" + re['subjectResults'][7]['subjectName'] + " - " + re['subjectResults'][7]['subjectResult'] + "\n" + re['subjectResults'][8]['subjectName'] + " - " + re['subjectResults'][8]['subjectResult']
+    res = """Exam - {}
+Year - {}
+Name - {} 
+Index Number - {} 
+{} - {}
+{} - {}
+{} - {}
+{} - {}
+{} - {}
+{} - {}
+{} - {}
+{} - {}
+{} - {}""" 
+    res=res.format(re['examination'], re['year'], re['name'], re['indexNo'], re['subjectResults'][0]['subjectName'], re['subjectResults'][0]['subjectResult'], re['subjectResults'][1]['subjectName'], re['subjectResults'][1]['subjectResult'], re['subjectResults'][2]['subjectName'], re['subjectResults'][2]['subjectResult'], re['subjectResults'][3]['subjectName'], re['subjectResults'][3]['subjectResult'], re['subjectResults'][4]['subjectName'], re['subjectResults'][4]['subjectResult'], re['subjectResults'][5]['subjectName'], re['subjectResults'][5]['subjectResult'], re['subjectResults'][6]['subjectName'], re['subjectResults'][6]['subjectResult'], re['subjectResults'][7]['subjectName'], re['subjectResults'][7]['subjectResult'], re['subjectResults'][8]['subjectName'], re['subjectResults'][8]['subjectResult'] )
   except TypeError:
-    res=type_error
+    olresult(inumber)
 
 
 def g5result(inumber):
-  i=1
   try:
     result_json = requests.get("https://www.doenets.lk/result/service/GvResult/"+inumber)    
     re = json.loads(result_json.text)
@@ -52,9 +76,7 @@ Marks - {}
 District Rank - {} """
     res = res.format(re['examination'], re['year'], re['name'], re['indexNo'], re['marks'], re['districtRank'] )
   except:
-    while i<3:
-        i+=1
-        g5result(inumber)
+    g5result(inumber)
         
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -71,7 +93,7 @@ def send_al(message):
     alresult(x[1])
     bot.reply_to(message,res)
   except:
-    bot.reply_to(message, in_error)
+    pass
   
 @bot.message_handler(commands=['ol','OL','Ol'])
 def send_ol(message):
@@ -80,7 +102,7 @@ def send_ol(message):
      olresult(x[1])
      bot.reply_to(message, res)
    except:
-     bot.reply_to(message, in_error)
+     pass
      
 
 @bot.message_handler(commands=['g5','G5'])
@@ -90,6 +112,6 @@ def send_g5(message):
      g5result(x[1])
      bot.reply_to(message, res)
    except:
-     bot.reply_to(message, in_error)
+     pass
 
 bot.polling()
