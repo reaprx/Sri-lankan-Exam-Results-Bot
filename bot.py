@@ -16,7 +16,6 @@ help_mes = """To get Results send Index Number as Following.
 /g5 {Index nNumber}  -  To get Grade 5 Scholarship Exam Rsults
 
 e.g. :- /ol 6162XXXX"""
-tries=0
 
 def alresult(inumber):
   try:
@@ -39,11 +38,7 @@ Subject Stream - {}
 {} - {}"""
    res=res.format(re['examination'], re['year'], re['name'], re['indexNo'], re['nic'], re['districtRank'], re['islandRank'], re['zScore'], re['stream'], re['subjectResults'][0]['subjectName'], re['subjectResults'][0]['subjectResult'], re['subjectResults'][1]['subjectName'], re['subjectResults'][1]['subjectResult'], re['subjectResults'][2]['subjectName'], re['subjectResults'][2]['subjectResult'], re['subjectResults'][3]['subjectName'], re['subjectResults'][3]['subjectResult'], re['subjectResults'][4]['subjectName'], re['subjectResults'][4]['subjectResult'])
   except:
-    tries=+1
-    if tries < 4:
-      alresult(inumber)
-    else:
-      pass
+    pass
 
 def olresult(inumber):
   try:
@@ -65,12 +60,7 @@ Index Number - {}
 {} - {}""" 
     res=res.format(re['examination'], re['year'], re['name'], re['indexNo'], re['subjectResults'][0]['subjectName'], re['subjectResults'][0]['subjectResult'], re['subjectResults'][1]['subjectName'], re['subjectResults'][1]['subjectResult'], re['subjectResults'][2]['subjectName'], re['subjectResults'][2]['subjectResult'], re['subjectResults'][3]['subjectName'], re['subjectResults'][3]['subjectResult'], re['subjectResults'][4]['subjectName'], re['subjectResults'][4]['subjectResult'], re['subjectResults'][5]['subjectName'], re['subjectResults'][5]['subjectResult'], re['subjectResults'][6]['subjectName'], re['subjectResults'][6]['subjectResult'], re['subjectResults'][7]['subjectName'], re['subjectResults'][7]['subjectResult'], re['subjectResults'][8]['subjectName'], re['subjectResults'][8]['subjectResult'] )
   except:
-    tries=+1
-    if tries < 4:
-      olresult(inumber)
-    else:
-      pass
-
+    pass
 
 def g5result(inumber):
   try:
@@ -85,11 +75,7 @@ Marks - {}
 District Rank - {} """
     res = res.format(re['examination'], re['year'], re['name'], re['indexNo'], re['marks'], re['districtRank'] )
   except:
-    tries=+1
-    if tries < 4:
-      g5result(inumber)
-    else:
-      pass
+    pass
         
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -106,7 +92,7 @@ def send_al(message):
     alresult(x[1])
     bot.reply_to(message,res)
   except:
-    bot.reply_to(message,"Can't read the index number")
+    bot.reply_to(message,"error")
   
 @bot.message_handler(commands=['ol','OL','Ol'])
 def send_ol(message):
@@ -115,7 +101,7 @@ def send_ol(message):
      olresult(x[1])
      bot.reply_to(message, res)
    except:
-    bot.reply_to(message,"Can't read the index number")     
+    bot.reply_to(message,"error")     
 
 @bot.message_handler(commands=['g5','G5'])
 def send_g5(message):
@@ -124,6 +110,6 @@ def send_g5(message):
      g5result(x[1])
      bot.reply_to(message, res)
    except:
-    bot.reply_to(message,"Can't read the index number")
+    bot.reply_to(message,"error")
 
 bot.polling()
